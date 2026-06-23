@@ -1,0 +1,11 @@
+安装python环境（pyenv可以方便切换python版本）
+创建隔离的python环境.venv，所有相关的依赖都在指定文件夹下，方便导出所有依赖
+
+
+
+python中对集合的修改，也是要先拷贝，迭代拷贝的集合，然后操作真正的集合。因为循环过程中对集合的删除操作，会导致跳过元素
+python的range常用做迭代次数限制，比如for i in range(5)就实现了迭代五次，但要注意啊，i是从0开始的
+
+mac使用homebrew下载软件（自动安装依赖）
+安装的路径默认是/opt/homebrew/bin
+安装后，可以修改~/.zshrc文件，使得在任意路径使用git时，优先找到homebrew目录下的版本,执行source ~/.zshrc应用配置文件信息
