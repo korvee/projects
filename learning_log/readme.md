@@ -1,0 +1,53 @@
+# 使用django创建web程序
+
+## sqllite数据库
+- 它是一个嵌入式的单文件数据库，但同样遵循sql标准，切换到大型关系型数据库时只需要改变配置文件
+- 项目练习首选sqllite，无需关注端口、用户权限、网络策略等内容，专注于web项目本身
+- sqllite的在少些多读的场景下，因为少去了网络等开销，性能甚至比大型关系型数据还要好。在实际生产上也有很多的应用，主要缺陷就是并发读的效果很差，同一时间只允许一个写入操作
+- sqllite数据库通过vscode中的插件或者db brower for sqllite客户端访问
+
+## django创建项目
+**这名字挺有意思的，django，d不发音，和昆汀的电影同名**
+- django-admin startproject创建整个web应用的容器，包括全局配置、路由入口等；python manage.py startapp创建业务模块，一个应用包含多个业务模块
+- djangok也实现了orm框架
+1. 在model.py里定义表结构
+2. 执行python manage.py makemigrations learning_logs命令，该命令会对比model和数据库表的差异，然后根据差异生成迁移文件
+3. 执行python manage.py migrate命令，根据迁移文件对数据库做变更
+4. 需要注意，既然使用orm框架，就把数据库变更都交给它，不要自己再连接数据库直接修改，如果真的这样做了，django也会以model里定义的内容为准，试图生成迁移文件来将表结构修正为和model一致
+
+## 项目实践总结
+- 表字段命名：主键统一命名为id，外键命名为目标表名_id。主流的orm框架都需要使用方遵循这个规则
+- django的orm框架使用。因为数据库查询都改成python代码方式了，如果想知道python代码对应的查询结果，可以使用django提供的shell功能，在控制台测试好了再写。不需要把试图模板等都编写好，再到浏览器上看结果
+- django内置了orm框架，在model.py中定义模型（对应数据库表），对定义的新增和修改对应ddl语句（完成修改后，手动调用django的命令完成），对model方法的调用，对应dml（增删改查甚至是表关联等都可以实现，可以算是sql的替代品）。从自己写sql到使用orm框架让其自动生成sql执行，可能会有心智负担（不信任orm，怕它出问题），实际上方法别调错，它还是很稳定，另外django也支持打印model对应语句对应的sql语句
+- django除了与表对应的model类，还有特殊的formmodel类，表单对应可以声明为对应某个表，对表单的保存也同样会写入表
+- from django.contrib.auth.views import LoginView这是django官方开发的一个登录视图，可以通过学习该视图的实现逻辑、规范以及扩展机制，提升对django框架的使用水平
+- csrf攻击（跨站请求伪造），你已经登录了某网站，通过cookie记录了你的身份，然后恶意网站伪造了一个请求（比如转账到自己账户）发到目标网站。因为在向目标网站请求时会自动带上cookie，而cookie是正确的，所以目标网站就会正常处理这个恶意请求。解决csrf攻击的方式就是token，服务器返回一个token放到用户的页面上，因为浏览器的同源策略，其他网页通过js是无法获得这个token的，然后服务器验证用户请求时会去验证token
+- 网页用户认证是cookie和token联合使用的，cookie负责记录你是谁，token负责验证操作是你主动发起的（token验证通过，意味着请求是从当前网站发起的，其他网站拿不到这个token）
+- 对于form表单，用于提交的button标签必须放到form标签内，提交的含义就是将button所在的form数据提交
+- python装饰器（语法是@符号开头），这个是python本身自带的功能， 主要用于修饰函数，装饰器拿到一个函数，可以在函数中添加自定义的代码，甚至完全替换函数
+
+## 新框架学习经验总结
+- 学习一个新框架时，首先要对工具建立一个地图，了解工具有什么，然后顶层目录的涉及（每个目录对应一个方向的功能），这样在使用时，就能先知道有没有，大概在什么位置，具体的使用方式再去对应位置查找
+- 建立地图的步骤：看目录结构；找入口出口；看扩展目录；画地图笔记
+
+## 数据库相关
+- 关于数据归属用户时，表的设计。只需要将最高层的数据关联到用户即可，因为低层数据会关联高层数据，这样也就完成了低层数据和用户的关联
+
+```html
+<p>
+<a href="{% url 'learning_logs:index' %}">Learning Log</a>
+<a href="{% url 'learning_logs:topics' %}">Topics</a>
+{% if user.is_authenticated%}
+  hello,{{ user.username}}.
+  <form method="post" action="{% url 'users:logout' %}">
+    {% csrf_token %}
+    <button type="submit">log out</button>
+  </form>
+{% else %}
+  <a href="{% url 'users:register' %}">register</a>
+  <a href="{% url 'users:login' %}"></a>
+{% endif%}
+</p> 
+{% block content %}{% endblock content %}
+
+```
