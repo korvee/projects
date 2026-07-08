@@ -1,0 +1,9 @@
+com/example/redisdemo/entity/MarketingActivity.class
+com/example/redisdemo/controller/MarketingActivityController.class
+com/example/redisdemo/repository/MarketingActivityRepository.class
+com/example/redisdemo/config/RedissonConfig.class
+com/example/redisdemo/service/MarketingActivityCacheService.class
+com/example/redisdemo/RedisDemoApplication.class
+com/example/redisdemo/config/RedisConfig.class
+com/example/redisdemo/service/BatchTaskLockService.class
+com/example/redisdemo/controller/BatchTaskLockController.class

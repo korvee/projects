@@ -1,0 +1,9 @@
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/config/RedisConfig.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/RedisDemoApplication.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/service/BatchTaskLockService.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/controller/MarketingActivityController.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/repository/MarketingActivityRepository.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/service/MarketingActivityCacheService.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/entity/MarketingActivity.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/config/RedissonConfig.java
+/Users/wanghong/projects/redis-demo/src/main/java/com/example/redisdemo/controller/BatchTaskLockController.java

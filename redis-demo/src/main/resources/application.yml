@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: redis-demo
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: redis123
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+
+# Redisson 单机模式配置，如果是生产环境的集群/哨兵模式，把 singleServerConfig 换成对应配置即可
+redisson:
+  address: redis://127.0.0.1:6379
+  password: redis123
+
+logging:
+  level:
+    com.example.redisdemo: debug
