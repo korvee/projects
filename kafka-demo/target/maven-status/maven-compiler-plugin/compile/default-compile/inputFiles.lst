@@ -1,0 +1,11 @@
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/config/KafkaErrorHandlingConfig.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/consumer/IdempotentEventConsumer.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/consumer/RetryDlqConsumer.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/KafkaDemoApplication.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/config/KafkaTopicConfig.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/consumer/DeadLetterConsumer.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/controller/EventController.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/consumer/BatchLoanResultConsumer.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/producer/MarketingEventProducer.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/entity/MarketingEvent.java
+/Users/wanghong/projects/kafka-demo/src/main/java/com/example/kafkademo/consumer/BasicEventConsumer.java

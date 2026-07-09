@@ -1,0 +1,50 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: kafka-demo
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # acks=all：等所有ISR副本都确认写入才算成功，生产环境保证不丢消息的标准配置
+      acks: all
+      retries: 3
+      properties:
+        # 幂等生产者：避免网络抖动导致 Producer 内部重试造成的消息重复写入
+        enable.idempotence: true
+
+    consumer:
+      group-id: default-group
+      # earliest：消费者组第一次启动时从最早的消息开始消费，避免漏掉demo阶段发的消息
+      auto-offset-reset: earliest
+      # 关掉自动提交，改成手动ACK，这是生产环境保证"消息处理完才算消费成功"的标准做法
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.example.kafkademo.entity"
+        spring.json.value.default.type: com.example.kafkademo.entity.MarketingEvent
+
+    listener:
+      # MANUAL_IMMEDIATE：业务代码里手动调用 Acknowledgment.acknowledge() 才提交offset，
+      # 处理失败就不调用，消息会在下次poll时被重新消费到（配合下面的重试机制）
+      ack-mode: manual_immediate
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: redis123
+      # 用db1跟你之前redis-demo工程用的db0区分开，两个demo可以同时跑，互不干扰
+      database: 1
+
+logging:
+  level:
+    com.example.kafkademo: debug
+    org.apache.kafka: warn
+    org.springframework.kafka: warn
